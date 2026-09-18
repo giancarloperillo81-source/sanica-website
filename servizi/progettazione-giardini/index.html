@@ -18,10 +18,29 @@ header{position:absolute;z-index:10;top:0;left:0;right:0;color:#fff}.nav{height:
 .cta{background:#132b1d;color:#fff;padding:110px 0}.ctagrid{display:grid;grid-template-columns:1.2fr .8fr;gap:80px}.cta h2{margin:14px 0 25px}.cta p{color:#d5ded6;max-width:560px;font-size:17px}.links2{align-self:end}.links2 a{display:block;border-bottom:1px solid rgba(255,255,255,.2);padding:16px 0}
 footer{background:#102219;color:#bdc8bf;padding:28px 0;font-size:10px}.foot{display:flex;justify-content:space-between}
 @media(max-width:850px){.links{display:none}.wrap{padding:0 20px}.hero{min-height:75vh}.hero-content{padding-bottom:50px}.intro,.dark,.editorial,.gallery,.cta{padding:80px 0}.grid,.ctagrid{grid-template-columns:1fr;gap:30px}.features{grid-template-columns:1fr}.feature{min-height:0}.feature h3{margin:28px 0 8px}.split,.gallerygrid{grid-template-columns:1fr}.large,.small{min-height:360px}.foot{display:block}}
+
+/* Mobile navigation */
+.menu-toggle{display:none;position:relative;width:44px;height:44px;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:transparent;color:#fff;cursor:pointer;padding:0;z-index:20}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";position:absolute;left:13px;width:18px;height:1.5px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+.menu-toggle span{top:21px}
+.menu-toggle span:before{left:0;top:-6px}
+.menu-toggle span:after{left:0;top:6px}
+.mobile-menu{display:none}
+@media(max-width:850px){
+  .menu-toggle{display:block}
+  .nav .navbtn{display:none}
+  .mobile-menu{position:absolute;top:76px;left:20px;right:20px;display:flex;flex-direction:column;gap:0;padding:10px 18px;background:rgba(29,75,49,.98);border:1px solid rgba(255,255,255,.18);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(-8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+  .mobile-menu a{padding:13px 2px;color:#fff;font-size:14px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .mobile-menu a:last-child{border-bottom:0}
+  header.menu-open .mobile-menu{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+  header.menu-open .menu-toggle span{transform:rotate(45deg)}
+  header.menu-open .menu-toggle span:before{transform:translateY(6px) rotate(90deg)}
+  header.menu-open .menu-toggle span:after{opacity:0}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><a class="brand" href="../sanica-home-v4/index.html">SA.NI.CA.<small>I CREATORI DEL VERDE</small></a><nav class="links"><a href="#servizio">Il servizio</a><a href="#approccio">Approccio</a><a href="#lavori">Realizzazioni</a><a href="#contatti">Contatti</a></nav><a class="navbtn" href="#contatti">Parliamone</a></div></header>
+<header><div class="wrap nav"><a class="brand" href="../sanica-home-v4/index.html">SA.NI.CA.<small>I CREATORI DEL VERDE</small></a><nav class="links"><a href="#servizio">Il servizio</a><a href="#approccio">Approccio</a><a href="#lavori">Realizzazioni</a><a href="#contatti">Contatti</a></nav><button class="menu-toggle" type="button" aria-label="Apri il menu" aria-expanded="false"><span></span></button><nav class="mobile-menu" aria-label="Menu mobile"><a href="#servizio">Il servizio</a><a href="#approccio">Approccio</a><a href="#lavori">Realizzazioni</a><a href="#contatti">Contatti</a></nav><a class="navbtn" href="#contatti">Parliamone</a></div></header>
 
 <section class="hero"><img src="assets/hero.webp" alt="Giardino realizzato da Sa.Ni.Ca."><div class="wrap"><div class="hero-content"><div class="crumb">Servizi / Progettazione giardini · Palermo e provincia</div><h1>Progettazione<br>giardini.</h1><p>Dare forma a uno spazio verde partendo da un'idea, dal contesto e dalle esigenze di chi lo vivrà.</p></div></div></section>
 
@@ -39,4 +58,16 @@ footer{background:#102219;color:#bdc8bf;padding:28px 0;font-size:10px}.foot{disp
 
 <section class="cta" id="contatti"><div class="wrap ctagrid"><div><div class="eyebrow">Contatti</div><h2 class="serif">Hai uno spazio<br>da progettare?</h2><p>Raccontaci il tuo progetto. Sa.Ni.Ca. — I Creatori del Verde, Palermo e provincia.</p></div><div class="links2"><a href="tel:+393757350083">375 735 0083 ↗</a><a href="https://www.instagram.com/sanica.palermo/" target="_blank" rel="noopener">Instagram @sanica.palermo ↗</a></div></div></section>
 <footer><div class="wrap foot"><div>SA.NI.CA. — I CREATORI DEL VERDE · PALERMO E PROVINCIA</div><div>Privacy · Cookie</div></div></footer>
+
+<script>
+(function(){
+  var header=document.querySelector('header');
+  var toggle=document.querySelector('.menu-toggle');
+  if(!header||!toggle)return;
+  function closeMenu(){header.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false');}
+  toggle.addEventListener('click',function(){var open=!header.classList.contains('menu-open');header.classList.toggle('menu-open',open);toggle.setAttribute('aria-expanded',open?'true':'false');});
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+})();
+</script>
 </body></html>
